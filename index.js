@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 // Invoking the nightmare module below
+require('dotenv').config()
 const Nightmare = require('nightmare')
 // setting an instance of the headless browser
 // but setting it to non-headless mode
@@ -16,8 +17,8 @@ nightmare
   )
 // This above step invokes login page
 // The below two steps logs in the user
-  .type('#email', 'ENTER_FB_USERNAME')
-  .type('#pass', 'ENTER_FB_PASSWORD')
+  .type('#email', process.env.FB_USERNAME)
+  .type('#pass', process.env.FB_PASSWORD)
   // .click('[type=submit]')
   // The step below performs a submit or click of login button
   .click('#loginbutton')
@@ -34,7 +35,8 @@ nightmare
   // click on teh button to create the file (default params)
   .then(function(result) {
     console.log(result)
-    return nightmare.goto(result).wait(5000).click("[data-testid='dyi/sections/create']").wait(5000)
+    return nightmare.goto(result)
+    // return nightmare.goto(result).wait(5000).click("[data-testid='dyi/sections/create']").wait(5000)
   })
   .catch(function(error) {
     console.error('Search failed:', error)
